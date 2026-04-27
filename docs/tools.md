@@ -1,33 +1,29 @@
-# Referência Das Tools
+# Referência das tools
 
-Esta página descreve as ferramentas disponíveis no Meelion MCP e exemplos práticos de uso por assistentes de IA.
+Documentação das ferramentas **JSON-RPC** do Meelion MCP (`tools/call`). Pensada para **desenvolvedores**, **integradores de IA** e **catalogação** (*discoverability*) em repositórios e motores de busca.
+
+**Índice:** [Indicadores](#get_financial_indicators) · [Cotações](#get_quotes) · [Melhores investimentos](#get_best_investments) · [Detalhe do investimento](#get_investment_details)
+
+---
 
 ## `get_financial_indicators`
 
-Retorna indicadores financeiros atualizados do Brasil acompanhados pela Meelion, incluindo Selic, CDI/DI, IPCA, poupança e projeções relevantes quando disponíveis.
+Retorna indicadores financeiros do Brasil acompanhados pela Meelion: **Selic**, **CDI/DI**, **IPCA**, **poupança** e referências úteis para **renda fixa** e contexto macro.
 
-### Quando Usar
+### Descoberta (quando usar)
 
-Use esta tool quando a IA precisar responder perguntas como:
+- Perguntas sobre **taxa Selic hoje**, **CDI**, **DI**, **inflação IPCA**, **poupança**.
+- Contexto de **juros reais** e benchmarks para **CDB**, **LCI**, **Tesouro**.
+- *English:* Brazilian Central Bank rates, policy rate, consumer price index, fixed income reference rates.
 
-- "Qual é a Selic atual?"
-- "Quais indicadores financeiros a Meelion acompanha?"
-- "Mostre os principais indicadores de mercado para renda fixa."
-- "Qual é o contexto de juros e inflação para investir em renda fixa?"
+### Dados retornados (típico)
 
-### Dados Retornados
-
-A resposta pode incluir:
-
-- Nome do indicador.
-- Valor atual ou mais recente.
-- Data de referência.
-- Descrição curta.
-- URL pública relacionada no site da Meelion.
+- Nome e valor (ou último valor conhecido), referência de data, texto curto.
+- Estrutura alinhada ao site; campo `updatedAt` na resposta do MCP.
 
 ### Argumentos
 
-Nenhum argumento obrigatório.
+Nenhum.
 
 ### Exemplo
 
@@ -38,27 +34,22 @@ Nenhum argumento obrigatório.
 }
 ```
 
+---
+
 ## `get_quotes`
 
-Retorna cotações atualizadas de ativos e moedas acompanhados pela Meelion, como dólar, euro, ouro, prata e Bitcoin.
+Cotações de **dólar**, **euro**, **ouro**, **prata** e **Bitcoin** em formato estruturado (alinhado ao painel Meelion).
 
-### Quando Usar
+### Descoberta (quando usar)
 
-Use esta tool quando a IA precisar consultar:
-
-- Dólar.
-- Euro.
-- Ouro.
-- Prata.
-- Bitcoin.
+- **USD/BRL**, **EUR/BRL**, câmbio, **XAU**, **XAG**, **BTC**.
+- *English:* FX quotes, gold silver spot, Bitcoin price BRL.
 
 ### Argumentos
 
 | Campo | Tipo | Obrigatório | Descrição |
 | --- | --- | --- | --- |
-| `assets` | array | Não | Lista opcional de ativos desejados. Aceita `usd`, `eur`, `gold`, `silver`, `btc`. |
-
-Se `assets` não for informado, a tool retorna todos os ativos suportados.
+| `assets` | `string[]` | Não | Valores: `usd`, `eur`, `gold`, `silver`, `btc`. Se omitido, retorna o conjunto suportado. |
 
 ### Exemplo
 
@@ -71,7 +62,7 @@ Se `assets` não for informado, a tool retorna todos os ativos suportados.
 }
 ```
 
-### Schema De Entrada
+### Schema de entrada (resumo)
 
 ```json
 {
@@ -82,61 +73,43 @@ Se `assets` não for informado, a tool retorna todos os ativos suportados.
       "items": {
         "type": "string",
         "enum": ["usd", "eur", "gold", "silver", "btc"]
-      },
-      "description": "Lista opcional de ativos desejados. Valores aceitos: usd, eur, gold, silver, btc. Se omitido, retorna todas as cotações disponíveis."
+      }
     }
   }
 }
 ```
 
+---
+
 ## `get_best_investments`
 
-Busca as melhores oportunidades de renda fixa disponíveis na Meelion, com filtros por tipo de investimento, distribuidor, instituição, prazo e limite de resultados.
+Lista as **melhores oportunidades de renda fixa** nos dados Meelion: **ranking** com filtros por **tipo** (CDB, LCI, LCA, CRI, CRA, etc.), **distribuidor** (corretora, banco), **prazo** e `limit`.
 
-### Quando Usar
+### Descoberta (quando usar)
 
-Use esta tool quando a IA precisar responder perguntas como:
+- “**Melhores CDBs hoje**”, “**o que rende mais**”, “**LCI Banco Inter**”, “**até 1 ano**”, “**XP Investimentos**”.
+- Comparar **pós-fixado CDI+**, **prefixado**, **inflação+** quando os dados suportarem.
+- *English:* best Brazilian fixed income yields, bank deposit, brokerage ranking, maturity filter.
 
-- "Quais são os melhores CDBs hoje?"
-- "Quais investimentos do Banco Inter aparecem com maior rentabilidade?"
-- "Liste LCIs com prazo de até 1 ano."
-- "Compare oportunidades por distribuidor."
-- "Onde meu dinheiro pode render mais hoje?"
-- "Quais são os melhores investimentos por corretora ou banco?"
+> **Limites e modo:** o número padrão e o máximo de itens dependem de **`MCP.meelion_pro`** e do nível de acesso. Ver [mcp-modes.md](mcp-modes.md). Em **modo aberto**, a lista é curta (até **5** itens) e pode vir **`seeMoreOnSite`** com o **comparador** em `www.meelion.com`.
 
-### Dados Retornados
+### Dados retornados (típico)
 
-A resposta pode incluir:
-
-- Posição no ranking.
-- Nome do ativo.
-- Tipo de investimento.
-- Emissor.
-- Distribuidor.
-- Indexador.
-- Investimento mínimo.
-- Data de vencimento.
-- Taxa bruta quando disponível.
-- Taxa líquida anual.
-- Taxa líquida mensal.
-- Valor líquido projetado.
-- Valor bruto projetado.
-- `top_three_assets`.
-- Link público de detalhe na Meelion.
-- Dados brutos e metadados adicionais quando disponíveis.
+- `investments[]`: `position`, `id`, `name`, `investmentType`, `issuer`, `distributor`, indexador, mínimo, vencimento, taxas conforme acesso.
+- `detailUrl`: **URL pública** na base **`https://www.meelion.com`** (não o host do MCP), path `/renda-fixa/investimento/{slug}/`.
+- Com acesso ampliado: campos líquidos, projeções, `top_three_assets` onde aplicável.
+- **Modo aberto:** `seeMoreOnSite` com `message` + `url` do comparador (`/renda-fixa/comparar-investimentos/`).
 
 ### Argumentos
 
 | Campo | Tipo | Obrigatório | Descrição |
 | --- | --- | --- | --- |
-| `investment_types` | array/string | Não | IDs, nomes ou slugs dos tipos de investimento. Ex.: `CDB`, `LCI`, `LCA`, `CRI`, `CRA`, `debêntures`. |
-| `distributors` | array/string | Não | IDs, nomes ou slugs dos distribuidores, corretoras ou instituições. Ex.: `XP Investimentos`, `Itaú`, `BTG Pactual`, `Banco Inter`. |
-| `prazo` | string | Não | Slug ou ID da faixa de prazo. Ex.: `prazo-ate-1-ano`, `prazo-1-a-2-anos`, `prazo-2-a-3-anos`. |
-| `limit` | integer | Não | Número máximo de resultados a retornar, entre 1 e 50. Use valores menores para respostas rápidas e valores maiores para comparações mais amplas. |
+| `investment_types` | `array` ou `string` | Não | IDs, nomes ou slugs: CDB, LCI, LCA, CRI, CRA, debêntures, etc. |
+| `distributors` | `array` ou `string` | Não | Distribuidores: XP, Itaú, BTG, Banco Inter, etc. |
+| `prazo` | `string` | Não | Slug ou ID da faixa (ver tabela abaixo). |
+| `limit` | `integer` | Não | Teto depende do modo: ver [mcp-modes.md](mcp-modes.md) (até 5 aberto; Pro até 10 ou 200). |
 
-Os dados são indicativos e podem mudar. O usuário deve confirmar as condições na instituição financeira antes de investir.
-
-### Prazos Aceitos
+### Prazos aceitos (slugs comuns)
 
 | Slug | Descrição |
 | --- | --- |
@@ -146,7 +119,7 @@ Os dados são indicativos e podem mudar. O usuário deve confirmar as condiçõe
 | `prazo-3-a-4-anos` | 3 a 4 anos |
 | `prazo-acima-4-anos` | Acima de 4 anos |
 
-### Exemplo: CDBs Da XP Em Até 1 Ano
+### Exemplo: CDBs da XP até 1 ano
 
 ```json
 {
@@ -160,7 +133,7 @@ Os dados são indicativos e podem mudar. O usuário deve confirmar as condiçõe
 }
 ```
 
-### Exemplo: Todos Os Tipos, Apenas Banco Inter
+### Exemplo: filtro por distribuidor
 
 ```json
 {
@@ -172,43 +145,36 @@ Os dados são indicativos e podem mudar. O usuário deve confirmar as condiçõe
 }
 ```
 
+---
+
 ## `get_investment_details`
 
-Retorna detalhes completos de um investimento específico da Meelion a partir do ID ou slug, incluindo informações como tipo, emissor, distribuidor, rentabilidade, prazo, vencimento, garantias, riscos e demais campos disponíveis.
+Ficha de **um** investimento por **`id`** ou **`slug`**: tipo, emissor, distribuidor, rentabilidade, vencimento, etc., conforme disponível e acesso.
 
-### Quando Usar
+### Descoberta (quando usar)
 
-Use esta tool quando a IA já tem um ativo retornado pelo ranking e precisa aprofundar a explicação.
+- Aprofundar um item vindo de **`get_best_investments`**.
+- *English:* fixed income security details, CDB fact sheet, Brazil bond slug.
 
-Exemplos:
+### Links
 
-- "Explique melhor este CDB."
-- "Mostre os detalhes deste investimento."
-- "Qual é o emissor, vencimento e indexador deste ativo?"
+- `detailUrl` no objeto `investment` usa a base pública **`MCP.public_base_url`** (padrão `https://www.meelion.com`).
 
 ### Argumentos
 
 | Campo | Tipo | Obrigatório | Descrição |
 | --- | --- | --- | --- |
-| `id` | integer | Condicional | ID interno do investimento na Meelion. |
-| `slug` | string | Condicional | Slug público do investimento na Meelion, normalmente presente na URL do produto. |
+| `id` | `integer` | Condicional | ID interno do produto. |
+| `slug` | `string` | Condicional | Slug da URL `/renda-fixa/investimento/.../`. |
 
-Informe `id` ou `slug`.
-
-O schema de entrada usa `anyOf` para indicar que pelo menos um dos dois campos deve ser informado:
+Informe **`id` ou `slug`**.
 
 ```json
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "integer",
-      "description": "ID interno do investimento na Meelion."
-    },
-    "slug": {
-      "type": "string",
-      "description": "Slug público do investimento na Meelion, normalmente presente na URL do produto."
-    }
+    "id": { "type": "integer" },
+    "slug": { "type": "string" }
   },
   "anyOf": [
     { "required": ["id"] },
@@ -228,10 +194,10 @@ O schema de entrada usa `anyOf` para indicar que pelo menos um dos dois campos d
 }
 ```
 
-## Tools Planejadas
+---
 
-As seguintes funcionalidades estão planejadas para versões futuras:
+## Tools planejadas
 
-- `search_financial_products`
-- `compare_fixed_income`
-- `calculate_yield`
+- `search_financial_products` (busca mais ampla)
+- `compare_fixed_income` (lado a lado)
+- `calculate_yield` (simuladores, se houver alinhamento com o site)

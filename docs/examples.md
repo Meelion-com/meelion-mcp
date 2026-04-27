@@ -1,8 +1,10 @@
-# Exemplos De Uso
+# Exemplos de uso
 
-Os exemplos abaixo usam JSON-RPC, o formato esperado pelo endpoint MCP remoto da Meelion.
+Colecciona exemplos de **`curl`** e corpos **JSON-RPC** alinhados ao [endpoint de cliente](client-configuration.md) e à [referência de tools](tools.md).
 
-## Inicializar Sessão MCP
+> **Nota:** em **modo aberto**, `get_best_investments` devolve no máximo **5** itens; em **Pro**, o `limit` eficaz pode ir até **200** ou **10** conforme o acesso. Ver [mcp-modes.md](mcp-modes.md).
+
+## Inicializar sessão MCP
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -15,7 +17,7 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Listar Tools Disponíveis
+## Listar tools disponíveis
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -28,13 +30,9 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Consultar Indicadores Financeiros
+## Consultar indicadores financeiros
 
-Perguntas que uma IA poderia responder com este exemplo:
-
-- "Qual é a Selic?"
-- "Quais indicadores financeiros estão disponíveis?"
-- "Mostre um panorama rápido dos principais indicadores."
+Cobre perguntas como: “Qual a Selic?”, “E o CDI?”, *Brazilian interest rates*.
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -50,7 +48,9 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Consultar Cotações
+## Consultar cotações (dólar, euro, Bitcoin)
+
+*Keywords:* câmbio, USD, EUR, BTC, ouro, prata.
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -68,9 +68,7 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Melhores Investimentos
-
-Este exemplo busca CDBs disponíveis nos dados da Meelion.
+## Melhores investimentos (CDB, exemplo)
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -89,7 +87,9 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Melhores Investimentos Com Filtros
+A resposta pode incluir `seeMoreOnSite` com a URL do **comparador** no site (base `www.meelion.com`).
+
+## Melhores investimentos com vários filtros
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -110,9 +110,9 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Detalhes De Um Investimento
+## Detalhes de um investimento (slug)
 
-Use o `id` ou `slug` retornado por `get_best_investments`.
+Use o `slug` (ou `id`) devolvido pelo ranking.
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -129,3 +129,24 @@ curl -X POST https://mcp.meelion.com/ \
     }
   }'
 ```
+
+O campo `detailUrl` aponta para a ficha pública em **`https://www.meelion.com/renda-fixa/...`**.
+
+## Chamada com Bearer (modo Pro, quando aplicável)
+
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 8,
+    "method": "tools/call",
+    "params": {
+      "name": "get_best_investments",
+      "arguments": { "limit": 20 }
+    }
+  }'
+```
+
+Detalhes: [authentication.md](authentication.md).

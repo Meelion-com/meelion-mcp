@@ -1,33 +1,45 @@
 # Meelion MCP
 
-O Meelion MCP conecta assistentes de IA aos dados estruturados da [Meelion](https://www.meelion.com/), uma plataforma brasileira para pesquisa, comparação e acompanhamento de investimentos, com foco inicial em renda fixa, indicadores financeiros e oportunidades disponíveis no mercado.
+O **Meelion MCP** (Model Context Protocol) liga assistentes de IA e clientes automáticos aos dados estruturados da [**Meelion**](https://www.meelion.com/): plataforma brasileira para **pesquisa, comparação e acompanhamento** de investimentos, com foco em **renda fixa**, **indicadores** (Selic, CDI, IPCA, poupança) e **cotações** (dólar, euro, ouro, prata, Bitcoin).
 
-Com o MCP, uma IA compatível pode consultar dados da Meelion diretamente, sem precisar navegar pelo site, raspar páginas ou interpretar HTML.
+A IA consulta a API em **JSON-RPC** (sem depender de scraping ou HTML), recebendo payloads prontos para explicar **CDB, LCI, LCA, CRI, CRA, debêntures** e contexto de taxas e inflação.
 
-> Status: preview privado. O endpoint planejado é `https://mcp.meelion.com/`.
+> **Endpoint (API):** `POST` para o host de MCP publicado (ex.: `https://mcp.meelion.com/`).  
+> **Site (utilizadores):** links devolvidos no JSON (comparador, ficha do produto) apontam para **`https://www.meelion.com`**, conforme [modos e limites](docs/mcp-modes.md).
 
-## Sobre A Meelion
+## Para quem procura isto (descoberta)
 
-A [Meelion](https://www.meelion.com/) ajuda investidores a encontrar, comparar e entender oportunidades de investimento de forma mais clara. A plataforma reúne dados de produtos financeiros, indicadores de mercado, instituições, distribuidores, rentabilidades projetadas e informações educacionais para apoiar análises de renda fixa.
+| Se procura | O Meelion MCP oferece |
+| --- | --- |
+| API de renda fixa Brasil, taxas CDB, ranking de investimentos | Tool `get_best_investments` com filtros por tipo, banco/corretora, prazo |
+| Selic hoje, CDI, IPCA, indicadores Banco Central | `get_financial_indicators` |
+| Cotação dólar euro ouro Bitcoin Hoje | `get_quotes` |
+| Detalhe de um título / slug do produto | `get_investment_details` |
+| MCP para ChatGPT, Cursor, Claude, agregador de tools | JSON-RPC `initialize`, `tools/list`, `tools/call` |
 
-A Meelion não é uma instituição financeira, não distribui produtos financeiros diretamente e não oferece recomendação personalizada. O objetivo é organizar informação, facilitar comparação e dar mais contexto para decisões de investimento.
+**Palavras-chave (PT):** renda fixa, melhores investimentos, comparador, Meelion, corretora, indexador, pré-fixado, pós-fixado.  
+**Keywords (EN):** Brazilian fixed income, investment comparison, CDI, savings bond equivalents, Model Context Protocol.
 
-## O Que O MCP Permite Fazer
+## Sobre a Meelion
 
-O Meelion MCP expõe funcionalidades pensadas para uso por IAs:
+A [Meelion](https://www.meelion.com/) organiza **dados de produtos**, **instituições**, **rentabilidades** e conteúdo educativo para apoiar comparação de **renda fixa** e decisões com mais contexto. A Meelion **não** é instituição financeira e **não** presta consultoria personalizada; o MCP replica essa natureza informativa.
 
-- Consultar indicadores financeiros brasileiros, como Selic, IPCA, DI e poupança.
-- Consultar cotações de dólar, euro, ouro, prata e Bitcoin.
-- Listar os melhores investimentos disponíveis segundo os dados da Meelion.
-- Filtrar investimentos por tipo, distribuidor e prazo.
-- Buscar detalhes de um ativo específico por `id` ou `slug`.
-- Receber respostas estruturadas, próprias para análise e geração de texto por assistentes.
+## O que o MCP permite fazer
 
-## Acesso
+- Indicadores financeiros brasileiros: Selic, CDI/DI, IPCA, poupança e referências alinhadas ao [painel do site](https://www.meelion.com).
+- Cotações: dólar, euro, ouro, prata, Bitcoin.
+- **Melhores oportunidades** de renda fixa (ranking) com filtros.
+- **Detalhe** de um investimento por `id` ou `slug`.
+- Respostas com **`structuredContent`** e texto JSON para *LLMs*.
 
-O MCP pode ser usado sem autenticação. Nesta fase de preview, basta enviar chamadas JSON-RPC para o endpoint público.
+O comportamento de **limites** (quantos itens no ranking) e de **autenticação** depende da implantação: [Modos, limites e URLs públicas](docs/mcp-modes.md) e [Acesso ao MCP](docs/authentication.md).
 
-As respostas foram pensadas para assistentes de IA: dados estruturados, campos estáveis e informações suficientes para explicar indicadores, cotações e oportunidades de investimento disponíveis na Meelion.
+## Acesso e segurança
+
+- Em **modo aberto** (padrão de documento de produto), o serviço pode ser chamado **sem Bearer**, com amostra curta de rankings; ver [mcp-modes](docs/mcp-modes.md).
+- Em **modo Pro**, pode ser exigido **token** e *gates* para dados completos. Ver [authentication](docs/authentication.md).
+
+Nunca trate a saída como **recomendação de investimento** individualizada.
 
 ## Endpoint
 
@@ -36,18 +48,22 @@ POST https://mcp.meelion.com/
 Content-Type: application/json
 ```
 
-## Tools Disponíveis
+(O host exato segue o ambiente: produção, *staging* ou *preview*.)
 
-| Tool | O que faz |
-| --- | --- |
-| `get_financial_indicators` | Retorna indicadores financeiros do Brasil acompanhados pela Meelion, como Selic, CDI/DI, IPCA, poupança e referências para renda fixa. |
-| `get_quotes` | Retorna cotações de dólar, euro, ouro, prata e Bitcoin em formato estruturado. |
-| `get_best_investments` | Busca oportunidades de renda fixa com filtros por tipo, distribuidor, instituição, prazo e limite de resultados. |
-| `get_investment_details` | Retorna detalhes de um investimento específico por `id` ou `slug`, útil para aprofundar itens do ranking. |
+## Tools disponíveis
 
-## Exemplo Rápido
+| Tool | Resumo | Descoberta rápida |
+| --- | --- | --- |
+| `get_financial_indicators` | Indicadores macro e de referência para renda fixa | Selic, CDI, IPCA, juros, inflação |
+| `get_quotes` | Cotações USD, EUR, ouro, prata, BTC | Câmbio, commodities, cripto |
+| `get_best_investments` | Ranking de renda fixa com filtros | Melhores CDB/LCI, por prazo, por corretora |
+| `get_investment_details` | Ficha de um título | Slug, emissor, vencimento, indexador |
 
-Buscar CDBs distribuídos pela XP Investimentos com vencimento em até 1 ano:
+Referência completa: [docs/tools.md](docs/tools.md).
+
+## Exemplo rápido (JSON-RPC)
+
+CDBs da XP, até 1 ano (o `limit` eficaz segue o [modo do servidor](docs/mcp-modes.md)):
 
 ```json
 {
@@ -68,11 +84,12 @@ Buscar CDBs distribuídos pela XP Investimentos com vencimento em até 1 ano:
 
 ## Documentação
 
-- [Acesso ao MCP](docs/authentication.md)
-- [Referência das Tools](docs/tools.md)
-- [Exemplos de Uso](docs/examples.md)
-- [Configuração de Clientes MCP](docs/client-configuration.md)
+- [Modos, limites e URLs públicas](docs/mcp-modes.md)
+- [Acesso ao MCP (incl. Pro e token)](docs/authentication.md)
+- [Referência das tools](docs/tools.md)
+- [Exemplos de uso](docs/examples.md)
+- [Configuração de clientes](docs/client-configuration.md)
 
 ## Aviso
 
-As informações retornadas pelo Meelion MCP têm finalidade informativa e comparativa. Elas não constituem recomendação de investimento, consultoria financeira, análise individualizada de perfil ou oferta de compra e venda de valores mobiliários.
+As informações têm finalidade **informativa e comparativa**, não **recomendação**, **consultoria** ou **oferta** de valores mobiliários. Confirme condições na instituição antes de investir.
