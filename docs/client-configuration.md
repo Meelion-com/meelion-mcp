@@ -12,7 +12,7 @@ Cada cliente MCP pode usar nomes diferentes para configurar servidores remotos. 
 - Transport: HTTP
 - Header opcional: `Authorization: Bearer <sua_api_key>`
 
-## Exemplo Genérico
+## Exemplo Genérico Com API Key
 
 ```json
 {
@@ -28,7 +28,7 @@ Cada cliente MCP pode usar nomes diferentes para configurar servidores remotos. 
 }
 ```
 
-## Sem API Key
+## Exemplo Genérico Sem API Key
 
 Para uso público, omita o header `Authorization`.
 
@@ -42,4 +42,14 @@ Para uso público, omita o header `Authorization`.
   }
 }
 ```
+
+## Variável De Ambiente
+
+Quando o cliente permitir variáveis de ambiente, prefira:
+
+```text
+MEELION_MCP_API_KEY=meelion_mcp_sua_chave
+```
+
+O acesso premium com API key estará disponível em breve para assinantes do **Meelion Pro**.
 
