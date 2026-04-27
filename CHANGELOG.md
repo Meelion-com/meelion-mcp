@@ -10,5 +10,5 @@
 
 ## 0.1.0
 
-- Initial private preview documentation.
+- Initial public documentation.
 - Added overview, authentication guide, tool reference and examples.

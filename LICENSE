@@ -2,6 +2,6 @@ Copyright (c) 2026 Meelion.
 
 All rights reserved.
 
-This repository is currently a private preview documentation repository for the Meelion MCP.
-Do not redistribute until the project is explicitly published by Meelion.
-
+This repository contains public documentation and examples for the Meelion MCP.
+Code samples may be copied for integration with the Meelion MCP. Other content
+remains copyrighted by Meelion unless explicitly stated otherwise.
