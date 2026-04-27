@@ -40,10 +40,10 @@ Content-Type: application/json
 
 | Tool | O que faz |
 | --- | --- |
-| `get_financial_indicators` | Retorna indicadores financeiros acompanhados pela Meelion, com valores e datas de referência. |
-| `get_quotes` | Retorna cotações de moedas, metais e Bitcoin em formato estruturado. |
-| `get_best_investments` | Retorna ranking de investimentos com filtros por tipo, distribuidor e prazo. |
-| `get_investment_details` | Retorna detalhes de um investimento específico por `id` ou `slug`. |
+| `get_financial_indicators` | Retorna indicadores financeiros do Brasil acompanhados pela Meelion, como Selic, CDI/DI, IPCA, poupança e referências para renda fixa. |
+| `get_quotes` | Retorna cotações de dólar, euro, ouro, prata e Bitcoin em formato estruturado. |
+| `get_best_investments` | Busca oportunidades de renda fixa com filtros por tipo, distribuidor, instituição, prazo e limite de resultados. |
+| `get_investment_details` | Retorna detalhes de um investimento específico por `id` ou `slug`, útil para aprofundar itens do ranking. |
 
 ## Exemplo Rápido
 

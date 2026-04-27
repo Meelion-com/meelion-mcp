@@ -62,7 +62,7 @@ curl -X POST https://mcp.meelion.com/ \
     "params": {
       "name": "get_quotes",
       "arguments": {
-        "assets": ["DOLAR", "EURO", "BTC"]
+        "assets": ["usd", "eur", "btc"]
       }
     }
   }'
