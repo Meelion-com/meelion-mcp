@@ -1,53 +1,39 @@
-# Autenticação E Acesso Premium
+# Acesso Ao MCP
 
-O Meelion MCP aceita chamadas sem autenticação. Esse modo público foi criado para permitir que assistentes de IA consultem informações gerais de mercado e dados resumidos de investimentos.
+O Meelion MCP aceita chamadas sem autenticação. Esse modo foi criado para permitir que assistentes de IA consultem informações de mercado e dados estruturados de investimentos com pouca fricção.
 
-## Acesso Público
+## Como Acessar
 
-Sem API key, o MCP pode retornar:
+Envie requisições JSON-RPC para:
+
+```text
+POST https://mcp.meelion.com/
+Content-Type: application/json
+```
+
+Não é necessário enviar credenciais nesta fase.
+
+## Dados Disponíveis
+
+O MCP pode retornar:
 
 - Indicadores financeiros formatados.
 - Cotações atuais em formato estruturado.
-- Rankings resumidos de investimentos.
-- Dados básicos de ativos, como tipo, emissor, distribuidor, indexador, vencimento e investimento mínimo.
-
-Nesse modo, alguns campos são omitidos para proteger dados premium e evitar uso indevido.
-
-## Acesso Premium
-
-O acesso premium estará disponível em breve para assinantes do **Meelion Pro**.
-
-Quando a funcionalidade for liberada, usuários premium poderão gerar uma API key e enviar:
-
-```http
-Authorization: Bearer meelion_mcp_...
-```
-
-## O Que O Premium Deve Liberar
-
-Dependendo do plano e da disponibilidade da funcionalidade, o acesso premium poderá incluir:
-
-- Taxas líquidas.
-- Valores líquidos projetados.
-- Ranking completo de ativos.
-- Bloco `top_three_assets`.
-- Payloads brutos usados internamente pela Meelion.
-- Links e metadados adicionais quando disponíveis.
+- Rankings de investimentos.
+- Dados de ativos, como tipo, emissor, distribuidor, indexador, vencimento e investimento mínimo.
+- Campos de rentabilidade e projeção quando disponíveis nos dados da Meelion.
+- Blocos estruturados como `top_three_assets` em ferramentas que suportam destaque de resultados.
 
 ## Modos De Resposta
 
 | Situação | Resultado |
 | --- | --- |
-| Sem API key | Acesso público. |
-| API key inválida | `401 Unauthorized`. |
-| API key válida sem premium | Acesso autenticado limitado. |
-| API key válida com Meelion Pro | Acesso premium completo, quando disponível. |
+| Sem autenticação | Acesso permitido. |
+| Credenciais ausentes | Acesso permitido. |
 
 ## Boas Práticas
 
-- Nunca coloque sua API key em query string.
-- Não publique sua API key em repositórios, prints ou logs.
-- Use variáveis de ambiente para armazenar a chave.
-- Revogue chaves antigas ou comprometidas.
-- Use uma chave separada para cada cliente, agente ou automação.
-
+- Use sempre `POST` com `Content-Type: application/json`.
+- Trate as respostas como dados informativos, não como recomendação de investimento.
+- Evite enviar informações pessoais ou sensíveis nos argumentos das tools.
+- Mantenha cache do lado do cliente quando fizer sentido para reduzir chamadas repetidas.

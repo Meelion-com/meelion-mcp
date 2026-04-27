@@ -85,7 +85,7 @@ Use esta tool quando a IA precisar responder perguntas como:
 
 ### Dados Retornados
 
-No acesso público, a resposta pode incluir:
+A resposta pode incluir:
 
 - Posição no ranking.
 - Nome do ativo.
@@ -96,17 +96,13 @@ No acesso público, a resposta pode incluir:
 - Investimento mínimo.
 - Data de vencimento.
 - Taxa bruta quando disponível.
-- Link público de detalhe na Meelion.
-
-No acesso premium do Meelion Pro, a resposta poderá incluir também:
-
 - Taxa líquida anual.
 - Taxa líquida mensal.
 - Valor líquido projetado.
 - Valor bruto projetado.
-- Ranking completo.
 - `top_three_assets`.
-- Dados brutos e metadados internos.
+- Link público de detalhe na Meelion.
+- Dados brutos e metadados adicionais quando disponíveis.
 
 ### Argumentos
 
@@ -194,4 +190,3 @@ As seguintes funcionalidades estão planejadas para versões futuras:
 - `search_financial_products`
 - `compare_fixed_income`
 - `calculate_yield`
-

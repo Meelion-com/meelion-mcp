@@ -23,17 +23,11 @@ O Meelion MCP expõe funcionalidades pensadas para uso por IAs:
 - Buscar detalhes de um ativo específico por `id` ou `slug`.
 - Receber respostas estruturadas, próprias para análise e geração de texto por assistentes.
 
-## Acesso Público E Premium
+## Acesso
 
-O MCP pode ser usado sem autenticação para acesso público. Nesse modo, as respostas trazem informações úteis, mas limitadas.
+O MCP pode ser usado sem autenticação. Nesta fase de preview, basta enviar chamadas JSON-RPC para o endpoint público.
 
-O acesso premium, com dados mais completos, estará disponível em breve para assinantes do **Meelion Pro**. Quando liberado, usuários premium poderão usar uma API key no header:
-
-```http
-Authorization: Bearer meelion_mcp_...
-```
-
-O modo premium poderá incluir dados líquidos, ranking completo, blocos de destaque e payloads brutos usados internamente pela Meelion.
+As respostas foram pensadas para assistentes de IA: dados estruturados, campos estáveis e informações suficientes para explicar indicadores, cotações e oportunidades de investimento disponíveis na Meelion.
 
 ## Endpoint
 
@@ -74,7 +68,7 @@ Buscar CDBs distribuídos pela XP Investimentos com vencimento em até 1 ano:
 
 ## Documentação
 
-- [Autenticação e Acesso Premium](docs/authentication.md)
+- [Acesso ao MCP](docs/authentication.md)
 - [Referência das Tools](docs/tools.md)
 - [Exemplos de Uso](docs/examples.md)
 - [Configuração de Clientes MCP](docs/client-configuration.md)
@@ -82,4 +76,3 @@ Buscar CDBs distribuídos pela XP Investimentos com vencimento em até 1 ano:
 ## Aviso
 
 As informações retornadas pelo Meelion MCP têm finalidade informativa e comparativa. Elas não constituem recomendação de investimento, consultoria financeira, análise individualizada de perfil ou oferta de compra e venda de valores mobiliários.
-

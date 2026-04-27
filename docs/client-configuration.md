@@ -10,27 +10,9 @@ Cada cliente MCP pode usar nomes diferentes para configurar servidores remotos. 
 
 - URL: `https://mcp.meelion.com/`
 - Transport: HTTP
-- Header opcional: `Authorization: Bearer <sua_api_key>`
+- Autenticação: não necessária durante o preview público
 
-## Exemplo Genérico Com API Key
-
-```json
-{
-  "mcpServers": {
-    "meelion": {
-      "type": "http",
-      "url": "https://mcp.meelion.com/",
-      "headers": {
-        "Authorization": "Bearer ${MEELION_MCP_API_KEY}"
-      }
-    }
-  }
-}
-```
-
-## Exemplo Genérico Sem API Key
-
-Para uso público, omita o header `Authorization`.
+## Exemplo Genérico
 
 ```json
 {
@@ -43,13 +25,10 @@ Para uso público, omita o header `Authorization`.
 }
 ```
 
-## Variável De Ambiente
+## Chamada Direta
 
-Quando o cliente permitir variáveis de ambiente, prefira:
-
-```text
-MEELION_MCP_API_KEY=meelion_mcp_sua_chave
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
 ```
-
-O acesso premium com API key estará disponível em breve para assinantes do **Meelion Pro**.
-

@@ -68,9 +68,9 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Melhores Investimentos Sem API Key
+## Melhores Investimentos
 
-Este exemplo retorna uma visão pública e resumida.
+Este exemplo busca CDBs disponíveis nos dados da Meelion.
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -89,14 +89,11 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
-## Melhores Investimentos Com API Key Premium
-
-O acesso premium estará disponível em breve via assinatura do **Meelion Pro**.
+## Melhores Investimentos Com Filtros
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $MEELION_MCP_API_KEY" \
   -d '{
     "jsonrpc": "2.0",
     "id": 6,
@@ -132,4 +129,3 @@ curl -X POST https://mcp.meelion.com/ \
     }
   }'
 ```
-

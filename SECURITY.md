@@ -8,5 +8,4 @@ Contact:
 contato@meelion.com
 ```
 
-Never include API keys, user data, or private payloads in public reports.
-
+Never include secrets, user data, or private payloads in public reports.
