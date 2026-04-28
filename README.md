@@ -121,3 +121,7 @@ O mesmo corpo em JSON-RPC:
 ## Aviso
 
 As informações retornadas pelo Meelion MCP têm finalidade informativa e comparativa. Elas não constituem recomendação de investimento, consultoria financeira personalizada, análise individualizada de perfil ou oferta de compra e venda de valores mobiliários. Confirme condições, riscos, prazos, liquidez, garantias e tributação junto à instituição financeira antes de investir.
+
+## Divulgação
+
+- Página do Meelion MCP no Smithery: [danmarksp/meelion-mcp](https://smithery.ai/servers/danmarksp/meelion-mcp)
