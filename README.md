@@ -36,12 +36,48 @@ POST https://mcp.meelion.com/
 Content-Type: application/json
 ```
 
-Exemplo rápido:
+## Como Usar
+
+O endpoint MCP está aberto neste momento e funciona **sem autenticação**. Para descobrir as ferramentas disponíveis, chame `tools/list`:
+
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/list",
+    "params": {}
+  }'
+```
+
+Para executar uma ferramenta, use `tools/call`. Exemplo buscando CDBs da XP Investimentos com prazo de até 1 ano:
+
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/call",
+    "params": {
+      "name": "get_best_investments",
+      "arguments": {
+        "investment_types": ["CDB"],
+        "distributors": ["XP Investimentos"],
+        "prazo": "prazo-ate-1-ano",
+        "limit": 10
+      }
+    }
+  }'
+```
+
+O mesmo corpo em JSON-RPC:
 
 ```json
 {
   "jsonrpc": "2.0",
-  "id": 1,
+  "id": 2,
   "method": "tools/call",
   "params": {
     "name": "get_best_investments",
