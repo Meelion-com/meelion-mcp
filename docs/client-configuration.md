@@ -1,6 +1,6 @@
 # Configuração de clientes MCP
 
-Este documento mostra como apontar clientes MCP para o endpoint público da Meelion.
+Este documento mostra como usar o endpoint público da Meelion em clientes compatíveis com MCP remoto.
 
 ## URL do serviço MCP
 
@@ -10,9 +10,32 @@ https://mcp.meelion.com/
 
 Esta é a URL para chamadas MCP via HTTP/JSON-RPC, como `initialize`, `tools/list` e `tools/call`. Ela não é a página inicial para usuários; links de comparador e ficha de produto retornados no JSON apontam para [https://www.meelion.com](https://www.meelion.com/).
 
-## Exemplo genérico
+## Claude Desktop
 
-Alguns clientes aceitam configuração HTTP direta:
+No **Claude Desktop**, use o recurso de conectores remotos:
+
+```text
+Settings > Connectors > Custom Connectors
+```
+
+Cadastre a URL:
+
+```text
+https://mcp.meelion.com/
+```
+
+Depois de salvar, o Claude Desktop deve listar as ferramentas da Meelion:
+
+- `get_financial_indicators`
+- `get_quotes`
+- `get_best_investments`
+- `get_investment_details`
+
+Observação: o arquivo `claude_desktop_config.json` é voltado principalmente a servidores MCP locais via `command`/`args`, como pacotes Python ou Node rodando por stdio. Para o Meelion MCP, que é um servidor remoto HTTP, o fluxo recomendado é usar **Custom Connectors**.
+
+## Claude Code
+
+Quando o cliente aceitar MCP remoto HTTP, use a configuração abaixo:
 
 ```json
 {
@@ -25,38 +48,24 @@ Alguns clientes aceitam configuração HTTP direta:
 }
 ```
 
-## Claude Desktop
-
-Para servidores MCP remotos, a recomendação atual do Claude Desktop é cadastrar o endpoint em **Settings > Connectors / Custom Connectors**, usando:
+Se estiver usando comandos do Claude Code para adicionar MCPs, use o equivalente a um servidor remoto HTTP apontando para:
 
 ```text
 https://mcp.meelion.com/
 ```
 
-Se você estiver usando `claude_desktop_config.json`, use um bridge local como `mcp-remote`:
+## Testar Com Inspector
 
-```json
-{
-  "mcpServers": {
-    "meelion": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.meelion.com/",
-        "--transport",
-        "http-only"
-      ]
-    }
-  }
-}
+Você pode validar a listagem das ferramentas com o Inspector oficial:
+
+```bash
+npx -y @modelcontextprotocol/inspector \
+  --cli https://mcp.meelion.com/ \
+  --transport http \
+  --method tools/list
 ```
 
-Depois de alterar o arquivo, feche e abra novamente o Claude Desktop.
-
-## Chamada direta com curl
+## Chamada Direta Com Curl
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -64,7 +73,7 @@ curl -X POST https://mcp.meelion.com/ \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
 ```
 
-## Variável de ambiente para scripts
+## Variável De Ambiente Para Scripts
 
 ```bash
 export MEELION_MCP_URL="https://mcp.meelion.com/"
@@ -72,7 +81,7 @@ export MEELION_MCP_URL="https://mcp.meelion.com/"
 
 O arquivo `examples/curl.sh` usa `MEELION_MCP_URL` com o mesmo padrão.
 
-## Descoberta em marketplaces de tools
+## Descoberta Em Marketplaces De Tools
 
 - **Nome:** Meelion MCP
 - **Domínio API:** `mcp.meelion.com`
