@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Documentacao das tools alinhada ao schema MCP simplificado para compatibilidade com validadores de function calling: sem `oneOf`/`anyOf`, sem `required: []`, sem `enum` em `get_quotes.assets`.
+- Exemplos de `get_best_investments` atualizados para filtros em `string` (`"CDB, LCI"`), mantendo nota de compatibilidade com arrays legados aceitos pelo servidor.
+
 ## 0.2.0
 
 - Documentação alinhada ao **modo aberto** vs **Pro** (`MCP.meelion_pro`): limites de `get_best_investments`, padrões 5 / 10 / 5, tetos de `limit`.

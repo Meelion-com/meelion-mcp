@@ -76,8 +76,8 @@ curl -X POST https://mcp.meelion.com/ \
     "params": {
       "name": "get_best_investments",
       "arguments": {
-        "investment_types": ["CDB"],
-        "distributors": ["XP Investimentos"],
+        "investment_types": "CDB",
+        "distributors": "XP Investimentos",
         "prazo": "prazo-ate-1-ano",
         "limit": 10
       }
@@ -95,8 +95,8 @@ O mesmo corpo em JSON-RPC:
   "params": {
     "name": "get_best_investments",
     "arguments": {
-      "investment_types": ["CDB"],
-      "distributors": ["XP Investimentos"],
+      "investment_types": "CDB",
+      "distributors": "XP Investimentos",
       "prazo": "prazo-ate-1-ano",
       "limit": 10
     }

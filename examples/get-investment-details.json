@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/call",
+  "params": {
+    "name": "get_investment_details",
+    "arguments": {
+      "slug": "cra-minerva-cdi-mais-06-2036-12-24"
+    }
+  }
+}

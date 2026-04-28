@@ -80,7 +80,7 @@ curl -X POST https://mcp.meelion.com/ \
     "params": {
       "name": "get_best_investments",
       "arguments": {
-        "investment_types": ["CDB"],
+        "investment_types": "CDB",
         "limit": 5
       }
     }
@@ -101,8 +101,8 @@ curl -X POST https://mcp.meelion.com/ \
     "params": {
       "name": "get_best_investments",
       "arguments": {
-        "investment_types": ["CDB", "LCI"],
-        "distributors": ["XP Investimentos", "Banco Inter"],
+        "investment_types": "CDB, LCI",
+        "distributors": "XP Investimentos, Banco Inter",
         "prazo": "prazo-ate-1-ano",
         "limit": 10
       }
@@ -124,13 +124,13 @@ curl -X POST https://mcp.meelion.com/ \
     "params": {
       "name": "get_investment_details",
       "arguments": {
-        "slug": "cdb-exemplo-2027-01-01"
+        "slug": "cra-minerva-cdi-mais-06-2036-12-24"
       }
     }
   }'
 ```
 
-O campo `detailUrl` aponta para a ficha pública em **`https://www.meelion.com/renda-fixa/...`**.
+O campo `detailUrl` aponta para a ficha pública em **`https://www.meelion.com/renda-fixa/...`**. A resposta de detalhes inclui `id`, `slug`, nomes/textos de tipo, emissor, distribuidor e indexador, além de blocos de `security` e `profitability`; ela não retorna `offer_link`, `raw` ou links externos.
 
 ## Chamada com Bearer (modo Pro, quando aplicável)
 
