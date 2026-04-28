@@ -40,6 +40,19 @@ Content-Type: application/json
 
 O endpoint MCP está aberto neste momento e funciona **sem autenticação**. Para descobrir as ferramentas disponíveis, chame `tools/list`:
 
+Clientes como **Cursor** e **VS Code** podem usar a configuração HTTP básica abaixo. Para Claude Desktop, Claude Code e outros clientes, veja [Configuração de clientes MCP](docs/client-configuration.md).
+
+```json
+{
+  "mcpServers": {
+    "meelion": {
+      "type": "http",
+      "url": "https://mcp.meelion.com/"
+    }
+  }
+}
+```
+
 ```bash
 curl -X POST https://mcp.meelion.com/ \
   -H "Content-Type: application/json" \

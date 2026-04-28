@@ -54,6 +54,40 @@ Se estiver usando comandos do Claude Code para adicionar MCPs, use o equivalente
 https://mcp.meelion.com/
 ```
 
+## Cursor
+
+No Cursor, adicione o servidor MCP usando a configuração HTTP básica:
+
+```json
+{
+  "mcpServers": {
+    "meelion": {
+      "type": "http",
+      "url": "https://mcp.meelion.com/"
+    }
+  }
+}
+```
+
+Depois de salvar, reinicie/recarregue o Cursor se as ferramentas não aparecerem imediatamente.
+
+## VS Code
+
+Em clientes VS Code compatíveis com MCP remoto HTTP, use a mesma configuração:
+
+```json
+{
+  "mcpServers": {
+    "meelion": {
+      "type": "http",
+      "url": "https://mcp.meelion.com/"
+    }
+  }
+}
+```
+
+Se o cliente usar outro formato de arquivo, mantenha os dois campos essenciais: `type` como `http` e `url` como `https://mcp.meelion.com/`.
+
 ## Testar Com Inspector
 
 Você pode validar a listagem das ferramentas com o Inspector oficial:
