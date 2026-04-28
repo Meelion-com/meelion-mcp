@@ -9,7 +9,7 @@ https://mcp.meelion.com/
 ```
 
 - **Isto** é a URL para **`POST`** JSON-RPC (`initialize`, `tools/list`, `tools/call`).
-- **Isto não** é, por si, a *homepage* de utilizadores. As **páginas** a abrir no browser (comparador, ficha) vêm no JSON com base **`https://www.meelion.com`**; ver [mcp-modes.md](mcp-modes.md).
+- **Isto não** é, por si só, a página inicial para usuários. As **páginas** a abrir no navegador (comparador, ficha) vêm no JSON com base **`https://www.meelion.com`**; ver [mcp-modes.md](mcp-modes.md).
 
 ## Exemplo genérico
 
@@ -24,7 +24,7 @@ https://mcp.meelion.com/
 }
 ```
 
-(Exact syntax depends on the client: some use `url` + *streamable HTTP* MCP, others a *wrapper*.)
+(A sintaxe exata depende do cliente: alguns usam `url` + MCP via HTTP, outros usam um *wrapper*.)
 
 ## Variável de ambiente para *scripts*
 
@@ -32,7 +32,7 @@ https://mcp.meelion.com/
 export MEELION_MCP_URL="https://mcp.meelion.com/"
 ```
 
-O ficheiro `examples/curl.sh` usa `MEELION_MCP_URL` com o mesmo padrão.
+O arquivo `examples/curl.sh` usa `MEELION_MCP_URL` com o mesmo padrão.
 
 ## Chamada direta (*curl*)
 
@@ -46,7 +46,7 @@ curl -X POST https://mcp.meelion.com/ \
 
 - **Nome:** Meelion MCP
 - **Domínio API (típico):** `mcp.meelion.com`
-- **Site utilizador:** `https://www.meelion.com`
+- **Site para usuários:** `https://www.meelion.com`
 - **Categorias sugeridas:** finanças, Brasil, renda fixa, câmbio, investimentos
 - **Integração:** Model Context Protocol, JSON-RPC, ferramentas listadas em [tools.md](tools.md)
 

@@ -1,8 +1,8 @@
 # Exemplos de uso
 
-Colecciona exemplos de **`curl`** e corpos **JSON-RPC** alinhados ao [endpoint de cliente](client-configuration.md) e à [referência de tools](tools.md).
+Reúne exemplos de **`curl`** e corpos **JSON-RPC** alinhados ao [endpoint de cliente](client-configuration.md) e à [referência de tools](tools.md).
 
-> **Nota:** em **modo aberto**, `get_best_investments` devolve no máximo **5** itens; em **Pro**, o `limit` eficaz pode ir até **200** ou **10** conforme o acesso. Ver [mcp-modes.md](mcp-modes.md).
+> **Nota:** em **modo aberto**, `get_best_investments` retorna no máximo **5** itens; em **Pro**, o `limit` eficaz pode ir até **200** ou **10** conforme o acesso. Ver [mcp-modes.md](mcp-modes.md).
 
 ## Inicializar sessão MCP
 
@@ -112,7 +112,7 @@ curl -X POST https://mcp.meelion.com/ \
 
 ## Detalhes de um investimento (slug)
 
-Use o `slug` (ou `id`) devolvido pelo ranking.
+Use o `slug` (ou `id`) retornado pelo ranking.
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \

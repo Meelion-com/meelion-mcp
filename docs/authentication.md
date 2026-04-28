@@ -17,17 +17,17 @@ Content-Type: application/json
 
 2. **Identidade do cliente** (opcional em alguns *deploys*):
    - **Sem `Authorization`**: acesso de leitor público, com possíveis **redações** (campos líquidos, listas longas) conforme o servidor.
-   - **`Authorization: Bearer <token>`** (quando o modo Pro está ativo): o token liga a um utilizador; o servidor pode expor **dados completos** se o *feature gate* **mcp_full_data_access** (ou equivalente) for concedido a esse utilizador.
+   - **`Authorization: Bearer <token>`** (quando o modo Pro está ativo): o token identifica um usuário; o servidor pode expor **dados completos** se o *feature gate* **mcp_full_data_access** (ou equivalente) for concedido a esse usuário.
    - Token inválido ou em falta quando a política exige: resposta de erro apropriada (ex. **401** e cabeçalho `WWW-Authenticate` com *realm* `meelion-mcp` em implementações que sigam a API HTTP do projeto).
 
 > Em **modo aberto** (`meelion_pro = 0`), a documentação de *preview* muitas vezes descreve acesso **sem** credenciais, com amostra curta de listagens; confirme no *deploy* real.
 
-## O que a API pode devolver (visão geral)
+## O que a API pode retornar (visão geral)
 
 - **Indicadores e cotações** formatados.
 - **Rankings** de renda fixa; **fichas** de produto; **`updatedAt`** nos payloads.
 - Metadado **`access`** (ou similares) a indicar se houve *tier* de dados.
-- **URLs** do site: sempre a base pública (por defeito `https://www.meelion.com`), nunca o host *mcp* para páginas humanas — ver [mcp-modes.md](mcp-modes.md) § Links.
+- **URLs** do site: sempre a base pública (por padrão `https://www.meelion.com`), nunca o host *mcp* para páginas humanas — ver [mcp-modes.md](mcp-modes.md) § Links.
 
 ## Boas práticas
 
@@ -37,4 +37,4 @@ Content-Type: application/json
 
 ## Segurança e reporte
 
-Questões de segurança: [../SECURITY.md](../SECURITY.md) (e-mail de contacto, sem *secrets* em *issues* públicas).
+Questões de segurança: [../SECURITY.md](../SECURITY.md) (e-mail de contato, sem *secrets* em *issues* públicas).
