@@ -1,17 +1,18 @@
 # Configuração de clientes MCP
 
-Este repositório documenta como apontar **clientes** (Cursor, *IDEs*, *CLI*, agregadores) para o **endpoint** da API Meelion **MCP**.
+Este documento mostra como apontar clientes MCP para o endpoint público da Meelion.
 
-## URL do serviço MCP (JSON-RPC)
+## URL do serviço MCP
 
 ```text
 https://mcp.meelion.com/
 ```
 
-- **Isto** é a URL para **`POST`** JSON-RPC (`initialize`, `tools/list`, `tools/call`).
-- **Isto não** é, por si só, a página inicial para usuários. As **páginas** a abrir no navegador (comparador, ficha) vêm no JSON com base **`https://www.meelion.com`**; ver [mcp-modes.md](mcp-modes.md).
+Esta é a URL para chamadas MCP via HTTP/JSON-RPC, como `initialize`, `tools/list` e `tools/call`. Ela não é a página inicial para usuários; links de comparador e ficha de produto retornados no JSON apontam para [https://www.meelion.com](https://www.meelion.com/).
 
 ## Exemplo genérico
+
+Alguns clientes aceitam configuração HTTP direta:
 
 ```json
 {
@@ -24,17 +25,38 @@ https://mcp.meelion.com/
 }
 ```
 
-(A sintaxe exata depende do cliente: alguns usam `url` + MCP via HTTP, outros usam um *wrapper*.)
+## Claude Desktop
 
-## Variável de ambiente para *scripts*
+Para servidores MCP remotos, a recomendação atual do Claude Desktop é cadastrar o endpoint em **Settings > Connectors / Custom Connectors**, usando:
 
-```bash
-export MEELION_MCP_URL="https://mcp.meelion.com/"
+```text
+https://mcp.meelion.com/
 ```
 
-O arquivo `examples/curl.sh` usa `MEELION_MCP_URL` com o mesmo padrão.
+Se você estiver usando `claude_desktop_config.json`, use um bridge local como `mcp-remote`:
 
-## Chamada direta (*curl*)
+```json
+{
+  "mcpServers": {
+    "meelion": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.meelion.com/",
+        "--transport",
+        "http-only"
+      ]
+    }
+  }
+}
+```
+
+Depois de alterar o arquivo, feche e abra novamente o Claude Desktop.
+
+## Chamada direta com curl
 
 ```bash
 curl -X POST https://mcp.meelion.com/ \
@@ -42,14 +64,22 @@ curl -X POST https://mcp.meelion.com/ \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
 ```
 
-## *Discoverability* para *marketplaces* de tools
+## Variável de ambiente para scripts
+
+```bash
+export MEELION_MCP_URL="https://mcp.meelion.com/"
+```
+
+O arquivo `examples/curl.sh` usa `MEELION_MCP_URL` com o mesmo padrão.
+
+## Descoberta em marketplaces de tools
 
 - **Nome:** Meelion MCP
-- **Domínio API (típico):** `mcp.meelion.com`
-- **Site para usuários:** `https://www.meelion.com`
+- **Domínio API:** `mcp.meelion.com`
+- **Site para usuários:** [https://www.meelion.com](https://www.meelion.com/)
 - **Categorias sugeridas:** finanças, Brasil, renda fixa, câmbio, investimentos
 - **Integração:** Model Context Protocol, JSON-RPC, ferramentas listadas em [tools.md](tools.md)
 
-## Autenticação no cliente
+## Autenticação
 
-Em *deploys* **Pro**, pode ser necessário enviar o **Bearer**; ver [authentication.md](authentication.md). O *preview* documental pode descrever acesso anónimo; valide com o fornecedor.
+Neste momento, o endpoint público funciona sem autenticação. Não é necessário enviar API key ou Bearer token; ver [authentication.md](authentication.md).
