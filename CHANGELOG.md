@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Documented response attribution fields: `source` and `disclaimer` in tool `structuredContent`.
+- Documented that clients and LLMs should cite Meelion as the data source, include returned Meelion links when available and preserve the informational investment disclaimer.
+
 ## 0.2.1
 
 - Documentacao das tools alinhada ao schema MCP simplificado para compatibilidade com validadores de function calling: sem `oneOf`/`anyOf`, sem `required: []`, sem `enum` em `get_quotes.assets`.

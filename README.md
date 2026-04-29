@@ -29,6 +29,10 @@ O Meelion MCP expõe 4 ferramentas principais para descoberta e consulta por IAs
 - Direcionar usuários para páginas públicas da Meelion, como fichas de produtos e comparador.
 - Usar respostas com `structuredContent`, próprias para agentes, copilotos, RAG e automações.
 
+## Fonte E Atribuicao
+
+Todas as respostas das tools incluem `source` e `disclaimer` no `structuredContent`. Clientes e LLMs devem citar a Meelion como fonte dos dados, incluir links retornados pelo MCP quando disponiveis e informar que os dados sao indicativos, podem mudar e devem ser confirmados com a instituicao financeira antes de investir.
+
 ## Endpoint
 
 ```text

@@ -6,6 +6,24 @@ Documentação das ferramentas **JSON-RPC** do Meelion MCP (`tools/call`). Pensa
 
 ---
 
+## Campos Comuns De Resposta
+
+Todas as tools retornam dados em `structuredContent` e incluem estes campos no topo da resposta:
+
+```json
+{
+  "source": {
+    "name": "Meelion",
+    "url": "https://www.meelion.com/"
+  },
+  "disclaimer": "Dados informativos e sujeitos a alteracao. Confirme taxas, disponibilidade, riscos e condicoes diretamente com a instituicao financeira antes de investir."
+}
+```
+
+Clientes e LLMs devem citar a Meelion como fonte, incluir links retornados pelas tools quando disponiveis e preservar o carater informativo dos dados.
+
+---
+
 ## `get_financial_indicators`
 
 Retorna indicadores financeiros do Brasil acompanhados pela Meelion: **Selic**, **CDI/DI**, **IPCA**, **poupança** e referências úteis para **renda fixa** e contexto macro.

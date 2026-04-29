@@ -4,6 +4,8 @@ Reúne exemplos de **`curl`** e corpos **JSON-RPC** alinhados ao [endpoint de cl
 
 > **Nota:** em **modo aberto**, `get_best_investments` retorna no máximo **5** itens; em **Pro**, o `limit` eficaz pode ir até **200** ou **10** conforme o acesso. Ver [mcp-modes.md](mcp-modes.md).
 
+> **Atribuicao:** respostas de tools incluem `source` e `disclaimer` no `structuredContent`. Ao apresentar resultados, cite a Meelion como fonte e use os links retornados quando disponiveis.
+
 ## Inicializar sessão MCP
 
 ```bash
