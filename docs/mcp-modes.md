@@ -33,6 +33,6 @@ Este documento descreve o comportamento do servidor Meelion MCP em relação a *
 
 ## Palavras-chave (descoberta)
 
-Para indexação e descoberta em catálogos de MCP e motores: *Meelion MCP, renda fixa Brasil, CDB, LCI, LCA, Selic, CDI, IPCA, cotação dólar, Bitcoin, comparador de investimentos, API MCP JSON-RPC, assistente de investimentos*.
+Para indexação e descoberta em catálogos de MCP e motores: *Meelion MCP, renda fixa Brasil, CDB, LCI, LCA, Selic, CDI, IPCA, projeções futuras, expectativas Focus, cotação dólar, Bitcoin, comparador de investimentos, API MCP JSON-RPC, assistente de investimentos*.
 
 English: *Brazilian fixed income, bank deposit rates, XP, BTG, Banco Inter, investment ranking, Model Context Protocol*.

@@ -50,6 +50,34 @@ curl -X POST https://mcp.meelion.com/ \
   }'
 ```
 
+## Projeções futuras (Selic, DI, IPCA, câmbio)
+
+Expectativas agregadas por ano; mesma lógica que `GET https://www.meelion.com/api/indicadores/projecoes-futuras?indice=...&ano=...`.
+
+*Keywords:* Focus, expectativa de juros, inflação futura, curva DI.
+
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -d @examples/get-future-projections.json
+```
+
+Ou inline (série completa de IPCA):
+
+```bash
+curl -X POST https://mcp.meelion.com/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 32,
+    "method": "tools/call",
+    "params": {
+      "name": "get_future_projections",
+      "arguments": { "indice": "ipca" }
+    }
+  }'
+```
+
 ## Consultar cotações (dólar, euro, Bitcoin)
 
 *Keywords:* câmbio, USD, EUR, BTC, ouro, prata.

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Chama a API MCP (jsonrpc). Ajuste MEELION_MCP_URL para o seu ambiente.
+# Exemplos JSON em examples/: get-best-investments.json, get-future-projections.json, get-investment-details.json
 # Links "humanos" (comparador, ficha) vêm no JSON com base www.meelion.com; ver docs/mcp-modes.md
 set -euo pipefail
 

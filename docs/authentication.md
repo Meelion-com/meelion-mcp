@@ -46,7 +46,8 @@ curl -X POST https://mcp.meelion.com/ \
 
 ## O Que A API Pode Retornar
 
-- Indicadores financeiros brasileiros, como Selic, CDI/DI, IPCA e poupança.
+- Indicadores financeiros brasileiros **vigentes**, como Selic, CDI/DI, IPCA e poupança.
+- **Projeções futuras** (expectativas Selic, DI, IPCA, câmbio), agregadas por ano.
 - Cotações de dólar, euro, ouro, prata e Bitcoin.
 - Rankings de ativos de renda fixa.
 - Detalhes de investimentos específicos por `id` ou `slug`.

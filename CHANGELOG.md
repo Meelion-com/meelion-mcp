@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+- Nova tool documentada: **`get_future_projections`** — projeções futuras agregadas por ano (Selic, DI, IPCA, dólar/câmbio), parâmetros `indice`/`index`, `ano`/`year`; equivalência com `GET https://www.meelion.com/api/indicadores/projecoes-futuras`.
+- **README**, **docs/tools.md**, **docs/examples.md**, **docs/client-configuration.md** e **examples/** atualizados (inclui `get-future-projections.json`).
+- **`get_financial_indicators`**: texto ajustado para deixar claro que retorna valores **vigentes**; expectativas ficam em `get_future_projections`.
+
 ## 0.2.2
 
 - Documented response attribution fields: `source` and `disclaimer` in tool `structuredContent`.

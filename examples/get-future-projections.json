@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": 31,
+  "method": "tools/call",
+  "params": {
+    "name": "get_future_projections",
+    "arguments": {
+      "indice": "selic",
+      "ano": 2027
+    }
+  }
+}

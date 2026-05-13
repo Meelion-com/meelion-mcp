@@ -2,7 +2,7 @@
 
 Documentação das ferramentas **JSON-RPC** do Meelion MCP (`tools/call`). Pensada para **desenvolvedores**, **integradores de IA** e **catalogação** (*discoverability*) em repositórios e motores de busca.
 
-**Índice:** [Indicadores](#get_financial_indicators) · [Cotações](#get_quotes) · [Melhores investimentos](#get_best_investments) · [Detalhe do investimento](#get_investment_details)
+**Índice:** [Indicadores](#get_financial_indicators) · [Projeções futuras](#get_future_projections) · [Cotações](#get_quotes) · [Melhores investimentos](#get_best_investments) · [Detalhe do investimento](#get_investment_details)
 
 ---
 
@@ -26,11 +26,13 @@ Clientes e LLMs devem citar a Meelion como fonte, incluir links retornados pelas
 
 ## `get_financial_indicators`
 
-Retorna indicadores financeiros do Brasil acompanhados pela Meelion: **Selic**, **CDI/DI**, **IPCA**, **poupança** e referências úteis para **renda fixa** e contexto macro.
+Retorna indicadores financeiros do Brasil acompanhados pela Meelion: **Selic**, **CDI/DI**, **IPCA**, **poupança** e referências úteis para **renda fixa** e contexto macro — valores **vigentes** (último ponto conhecido de cada série no painel Meelion).
+
+Para **expectativas de mercado** ou **série futura por ano** (Selic, DI, IPCA, câmbio), use **`get_future_projections`**.
 
 ### Descoberta (quando usar)
 
-- Perguntas sobre **taxa Selic hoje**, **CDI**, **DI**, **inflação IPCA**, **poupança**.
+- Perguntas sobre **taxa Selic hoje**, **CDI**, **DI**, **inflação IPCA (acumulado / referência atual)**, **poupança**.
 - Contexto de **juros reais** e benchmarks para **CDB**, **LCI**, **Tesouro**.
 - *English:* Brazilian Central Bank rates, policy rate, consumer price index, fixed income reference rates.
 
@@ -49,6 +51,83 @@ Nenhum.
 {
   "name": "get_financial_indicators",
   "arguments": {}
+}
+```
+
+---
+
+## `get_future_projections`
+
+Retorna **projeções futuras** agregadas **por ano civil** (último ponto disponível de cada ano na base Meelion), para **Selic**, **DI (CDI)**, **IPCA** ou **dólar/câmbio** (expectativas Focus para câmbio). É a mesma fonte de dados que o endpoint público HTTP `GET https://www.meelion.com/api/indicadores/projecoes-futuras` (parâmetros equivalentes: `indice`, `ano`).
+
+### Descoberta (quando usar)
+
+- **Expectativa de Selic**, **projeção do Copom**, **curva implícita de DI**, **inflação esperada (IPCA)** para anos à frente.
+- **Câmbio futuro** / expectativas de **USD/BRL** (indicador `dolar` ou `cambio`).
+- *English:* Focus expectations, forward rates by year, implied DI curve, year-ahead inflation.
+
+### Dados retornados (típico)
+
+- `indice`, `financialIndexId`, `ano` (filtro aplicado ou `null` se veio a série completa).
+- `projections[]`: `referenceDate` (ISO `Y-m-d`), `indexRate`, `year`.
+- `moreInfoUrl`: página pública do indicador em `www.meelion.com` quando aplicável.
+- `updatedAt`, mais `source` e `disclaimer` comuns a todas as tools.
+
+### Argumentos
+
+| Campo | Tipo | Obrigatório | Descrição |
+| --- | --- | --- | --- |
+| `indice` | `string` | Condicional | Slug: `selic`, `di`, `ipca`, `dolar`, `cambio` (`cambio` é sinônimo de dólar/câmbio). |
+| `index` | `string` | Condicional | Alias em inglês de `indice` (mesmos valores). Informe **`indice` ou `index`**. |
+| `ano` | `integer` | Não | Ano civil (ex.: `2027`) para retornar só o ponto daquele ano. Se omitido, retorna **todo o período** disponível na série agregada. |
+| `year` | `integer` | Não | Alias de `ano`. |
+
+> O schema anunciado pelo servidor pode não marcar `indice`/`index` como `required` para compatibilidade com validadores antigos; a regra “pelo menos um dos dois” é validada na execução.
+
+### Valores aceitos para `indice` / `index`
+
+| Valor | Conteúdo típico |
+| --- | --- |
+| `selic` | Expectativas anuais de Selic (Focus / série Meelion). |
+| `di` | Mercado futuro de DI (fonte agregada na Meelion). |
+| `ipca` | Expectativas de inflação IPCA. |
+| `dolar` / `cambio` | Expectativas de câmbio (mesmo `financial_index_id` na Meelion). |
+
+### Exemplo: série completa de Selic
+
+```json
+{
+  "name": "get_future_projections",
+  "arguments": {
+    "indice": "selic"
+  }
+}
+```
+
+### Exemplo: IPCA esperado só para 2028 (alias em inglês)
+
+```json
+{
+  "name": "get_future_projections",
+  "arguments": {
+    "index": "ipca",
+    "year": 2028
+  }
+}
+```
+
+### Schema de entrada (resumo)
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "indice": { "type": "string" },
+    "index": { "type": "string" },
+    "ano": { "type": "integer" },
+    "year": { "type": "integer" }
+  },
+  "additionalProperties": false
 }
 ```
 

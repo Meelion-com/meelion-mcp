@@ -27,6 +27,7 @@ https://mcp.meelion.com/
 Depois de salvar, o Claude Desktop deve listar as ferramentas da Meelion:
 
 - `get_financial_indicators`
+- `get_future_projections`
 - `get_quotes`
 - `get_best_investments`
 - `get_investment_details`
